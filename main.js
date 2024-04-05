@@ -67,16 +67,21 @@ function initialize() {
     rooms.forEach((room) => {
       const controller = room.controller;
       const sources = room.find(FIND_SOURCES);
+      let sourceToControllerSteps = {}
 
       const sourceToControllerPaths = sources.map((source) => {
-        return room.findPath(source.pos, controller.pos, {
+        const path = room.findPath(source.pos, controller.pos, {
           ignoreCreeps: true,
           ignoreDestructibleStructures: true,
         });
+        sourceToControllerSteps[source] = path.length
       });
 
-      console.log(sourceToControllerPaths[0].length);
-      console.log(sourceToControllerPaths[1].length);
+      
+
+
+      console.log(`sourceToControllerSteps: ${JSON.stringify(sourceToControllerSteps, null, 4)}`);
+      
 
       // Find the appropriate source to use
 
