@@ -144,6 +144,15 @@ function initializeRoomLevel2(room) {
   });
 }
 
+function clearCreepMemory() {
+  for (const name in Memory.creeps) {
+    if (!Game.creeps[name]) {
+      delete Memory.creeps[name];
+      console.log(name + " is ded");
+    }
+  }
+}
+
 function initializeRoomLevel3(room) {
   console.log(`Initializing room ${room.name} for level 3`);
   // Available: Extensions (10 @ 50 capacity), Ramparts (1M max hits), Towers (1)
@@ -168,7 +177,7 @@ function initializeRoomLevel5(room) {
 
 module.exports.loop = function () {
   initializeRooms();
-  Game.clearCreepMemory();
+  clearCreepMemory();
 
   const spawn = Game.spawns["S1"];
   const room = spawn.room;
