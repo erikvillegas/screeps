@@ -61,21 +61,26 @@ function initialize() {
   if (!Memory.initialized) {
     console.log("Initializing...");
 
-    // Arrange the sources
-    for (const room of Object.values(Game.rooms)) {
-      console.log(room);
-      const controller = room.controller;
-      const sources = room.find(FIND_SOURCES);
+    const rooms = Object.values(Game.rooms);
+    const roomData = rooms.map(room => ({
+      controller: room.controller,
+      sources: room.find(FIND_SOURCES)
+    }))
 
-      for (const source of sources) {
-        const path = room.findPath(source.pos, controller.pos, {
+    // Arrange the sources
+    roomData.forEach(room => {
+      const sourceToControllerPaths = room.sources.map(source => {
+        return room.findPath(source.pos, controller.pos, {
           ignoreCreeps: true,
           ignoreDestructibleStructures: true,
         });
+      })
+      
+      console.log(`sourceToControllerPaths: ${JSON.stringify(sourceToControllerPaths, null, 4)}`);
+    })
 
-        console.log(`path: ${JSON.stringify(path, null, 4)}`);
-      }
-    }
+    
+    
 
     // room.memory.sources = {
     //   primary: sources[1].id,
