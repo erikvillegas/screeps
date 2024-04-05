@@ -64,7 +64,7 @@ function initialize() {
       const controller = room.controller;
       const sources = room.find(FIND_SOURCES);
 
-      for (const source in sources) {
+      for (const source of sources) {
         const path = room.findPath(source.pos, controller.pos, {
           ignoreCreeps: true,
           ignoreDestructibleStructures: true,
