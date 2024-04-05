@@ -53,6 +53,10 @@ function manageCreeps(creeps, room) {
 function initializeRooms() {
   const rooms = Object.values(Game.rooms);
 
+  const test = rooms[0]
+  console.log(`test.hasConstructionSites(): ${test.hasConstructionSites()}`);
+  
+
   // check if any rooms have reached a new level
   rooms
     .filter((room) => !room.memory.initializedLevel0 && room.controller.level >= 0)
