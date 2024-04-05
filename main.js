@@ -58,13 +58,11 @@ function initialize() {
   // TODO: reset
   Memory.initialized = false;
 
-
-
   if (!Memory.initialized) {
     console.log("Initializing...");
 
     // Arrange the sources
-    for (const room of Game.rooms) {
+    for (const room of Object.values(Game.rooms)) {
       console.log(room);
       const controller = room.controller;
       const sources = room.find(FIND_SOURCES);
@@ -76,7 +74,6 @@ function initialize() {
         });
 
         console.log(`path: ${JSON.stringify(path, null, 4)}`);
-        
       }
     }
 
