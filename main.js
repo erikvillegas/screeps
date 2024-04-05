@@ -50,12 +50,13 @@ function manageCreeps(creeps, room) {
   }
 }
 
+const RoomHelper = require("RoomHelper.js");
+
 function initializeRooms() {
   const rooms = Object.values(Game.rooms);
 
-  const test = rooms[0]
+  const test = rooms[0];
   console.log(`test.hasConstructionSites(): ${test.hasConstructionSites()}`);
-  
 
   // check if any rooms have reached a new level
   rooms
