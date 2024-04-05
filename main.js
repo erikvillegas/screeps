@@ -25,7 +25,7 @@ function assignSource(creep, room) {
 function manageCreeps(creeps, room) {
   for (var name in creeps) {
     var creep = creeps[name];
-    creep.say("Noobie!!", true);
+    // creep.say("Noobie!!", true);
 
     var doneUpgrading = creep.memory["doneUpgrading"];
 
