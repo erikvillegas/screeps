@@ -62,25 +62,26 @@ function initialize() {
     console.log("Initializing...");
 
     const rooms = Object.values(Game.rooms);
-    
 
     // Arrange the sources
-    rooms.forEach(room => {
+    rooms.forEach((room) => {
       const controller = room.controller;
       const sources = room.find(FIND_SOURCES);
 
-      const sourceToControllerPaths = sources.map(source => {
+      const sourceToControllerPaths = sources.map((source) => {
         return room.findPath(source.pos, controller.pos, {
           ignoreCreeps: true,
           ignoreDestructibleStructures: true,
         });
-      })
-      
-      console.log(`sourceToControllerPaths: ${JSON.stringify(sourceToControllerPaths, null, 4)}`);
-    })
+      });
 
-    
-    
+      console.log(sourceToControllerPaths[0].length);
+      console.log(sourceToControllerPaths[1].length);
+
+      // Find the appropriate source to use
+
+      // console.log(`sourceToControllerPaths: ${JSON.stringify(sourceToControllerPaths, null, 4)}`);
+    });
 
     // room.memory.sources = {
     //   primary: sources[1].id,
