@@ -70,7 +70,7 @@ function initialize() {
     // Arrange the sources
     roomData.forEach(room => {
       const sourceToControllerPaths = room.sources.map(source => {
-        return room.findPath(source.pos, controller.pos, {
+        return room.findPath(source.pos, room.controller.pos, {
           ignoreCreeps: true,
           ignoreDestructibleStructures: true,
         });
