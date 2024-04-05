@@ -10,15 +10,14 @@ function spawnCreep(spawn) {
 function assignSource(creep, room) {
   if (!creep.memory.source) {
     const creeps = Object.values(Game.creeps);
-    const sources = room.find(FIND_SOURCES);
-
+    
     const creepsUsingPrimarySource = creeps
       .map((c) => c.memory.source)
-      .filter((id) => id === room.memory.sources.primary);
+      .filter((id) => id === room.memory.sources[0]);
     creep.memory.source =
       creepsUsingPrimarySource < 4
-        ? room.memory.sources.primary
-        : room.memory.sources.secondary;
+        ? room.memory.sources[0]
+        : room.memory.sources[1];
   }
 }
 
@@ -77,17 +76,7 @@ function initialize() {
 
       sourceControllerSteps.sort((a, b) => a.distance - b.distance);
 
-      room.memory.sources = {
-        primary: sourceControllerSteps[0]
-          ? sourceControllerSteps[0].source.id
-          : undefined,
-        secondary: sourceControllerSteps[1]
-          ? sourceControllerSteps[1].source.id
-          : undefined,
-        tertiary: sourceControllerSteps[2]
-          ? sourceControllerSteps[2].source.id
-          : undefined,
-      };
+      room.memory.sources = sourceControllerSteps.map((s) => s.source);
 
       console.log(
         `room.memory.sources: ${JSON.stringify(room.memory.sources, null, 4)}`
