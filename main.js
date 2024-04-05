@@ -128,9 +128,8 @@ function initializeRoomLevel2(room) {
   room.controller.activateSafeMode();
 
   // Build construction sites for 4 extensions at Base1 site
-  const baseFlag1 = room.find(FIND_FLAGS).first(f => f.name === "Base1")
+  const baseFlag1 = room.find(FIND_FLAGS).find((f) => f.name === "Base1");
   console.log(`baseFlag1: ${JSON.stringify(baseFlag1, null, 4)}`);
-  
 
   // Main loop: If construction site available, spawn constructor
 }
