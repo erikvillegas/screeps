@@ -67,17 +67,25 @@ function initialize() {
     rooms.forEach((room) => {
       const controller = room.controller;
       const sources = room.find(FIND_SOURCES);
-      let sourceToControllerSteps = {}
-
-      const sourceToControllerPaths = sources.map((source) => {
+      const sourceControllerSteps = sources.map((source) => {
         const path = room.findPath(source.pos, controller.pos, {
           ignoreCreeps: true,
           ignoreDestructibleStructures: true,
         });
-        sourceToControllerSteps[source] = path.length
+        return [source, path.length]
       });
 
+      // order sources by length
+      console.log(`sourceControllerSteps: ${JSON.stringify(sourceControllerSteps, null, 4)}`);
       
+
+
+      // room.memory.sources = {
+      //   primary: ,
+      //   secondary: sources[0].id,
+      //   tertiary: null
+      // };
+
 
 
       console.log(`sourceToControllerSteps: ${JSON.stringify(sourceToControllerSteps, null, 4)}`);
@@ -88,10 +96,7 @@ function initialize() {
       // console.log(`sourceToControllerPaths: ${JSON.stringify(sourceToControllerPaths, null, 4)}`);
     });
 
-    // room.memory.sources = {
-    //   primary: sources[1].id,
-    //   secondary: sources[0].id,
-    // };
+    
 
     Memory.initialized = true;
   }
