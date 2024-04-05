@@ -72,7 +72,7 @@ function initializeRooms() {
     .filter((room) => !room.memory.initializedLevel2 && room.controller.level >= 2)
     .forEach((room) => {
       initializeRoomLevel2(room);
-      // room.memory.initializedLevel2 = true;
+      room.memory.initializedLevel2 = true;
     });
 
   rooms
@@ -131,6 +131,17 @@ function initializeRoomLevel2(room) {
   const baseFlag1 = room.find(FIND_FLAGS).find((f) => f.name === "Base1");
   console.log(`baseFlag1: ${JSON.stringify(baseFlag1, null, 4)}`);
 
+  const extensionPositions = [
+    new RoomPosition(baseFlag1.pos.x + 1, baseFlag1.pos.y, room.name), // right
+    new RoomPosition(baseFlag1.pos.x, baseFlag1.pos.y - 1, room.name), // bottom
+    new RoomPosition(baseFlag1.pos.x - 1, baseFlag1.pos.y, room.name), // left
+    new RoomPosition(baseFlag1.pos.x, baseFlag1.pos.y + 1, room.name), // top
+  ];
+
+  extensionPositions.forEach((pos) => {
+    room.createConstructionSite(pos, STRUCTURE_EXTENSION);
+  });
+  
   // Main loop: If construction site available, spawn constructor
 }
 
