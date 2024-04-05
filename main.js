@@ -53,59 +53,98 @@ function manageCreeps(creeps, room) {
 function initializeRooms() {
   const rooms = Object.values(Game.rooms);
 
-  rooms
-    .filter((room) => !room.memory.initialized)
-    .forEach((room) => {
-      console.log(`Initializing room ${room.name}`);
-
-      // Arrange the sources by distance to controller
-      const controller = room.controller;
-      const sources = room.find(FIND_SOURCES);
-      let sourceControllerSteps = sources.map((source) => {
-        const path = room.findPath(source.pos, controller.pos, {
-          ignoreCreeps: true,
-          ignoreDestructibleStructures: true,
-        });
-        return { source, distance: path.length };
-      });
-
-      room.memory.sources = sourceControllerSteps
-        .sort((a, b) => a.distance - b.distance)
-        .map((s) => s.source.id);
-
-      room.memory.initialized = true;
-    });
-
   // check if any rooms have reached a new level
   rooms
+    .filter((room) => !room.memory.initializedLevel0 && room.controller.level >= 0)
+    .forEach((room) => {
+      initializeRoomLevel0(room);
+      room.memory.initializedLevel0 = true;
+    });
+
+  rooms
+    .filter((room) => !room.memory.initializedLevel1 && room.controller.level >= 1)
+    .forEach((room) => {
+      initializeRoomLevel1(room);
+      room.memory.initializedLevel1 = true;
+    });
+
+  rooms
     .filter((room) => !room.memory.initializedLevel2 && room.controller.level >= 2)
-    .forEach((room) => initializeRoomLevel2(room));
+    .forEach((room) => {
+      initializeRoomLevel2(room);
+      room.memory.initializedLevel2 = true;
+    });
 
   rooms
     .filter((room) => !room.memory.initializedLevel3 && room.controller.level >= 3)
-    .forEach((room) => initializeRoomLevel3(room));
+    .forEach((room) => {
+      initializeRoomLevel3(room);
+      room.memory.initializedLevel3 = true;
+    });
 
   rooms
     .filter((room) => !room.memory.initializedLevel4 && room.controller.level >= 4)
-    .forEach((room) => initializeRoomLevel4(room));
+    .forEach((room) => {
+      initializeRoomLevel4(room);
+      room.memory.initializedLevel4 = true;
+    });
+
+    rooms
+    .filter((room) => !room.memory.initializedLevel5 && room.controller.level >= 5)
+    .forEach((room) => {
+      initializeRoomLevel5(room);
+      room.memory.initializedLevel5 = true;
+    });
+}
+
+function initializeRoomLevel0(room) {
+  console.log(`Initializing room ${room.name} for level 0`);
+  // Available (Roads, 5 Containers)
+
+  // Arrange the sources by distance to controller
+  const controller = room.controller;
+  const sources = room.find(FIND_SOURCES);
+  let sourceControllerSteps = sources.map((source) => {
+    const path = room.findPath(source.pos, controller.pos, {
+      ignoreCreeps: true,
+      ignoreDestructibleStructures: true,
+    });
+    return { source, distance: path.length };
+  });
+
+  room.memory.sources = sourceControllerSteps
+    .sort((a, b) => a.distance - b.distance)
+    .map((s) => s.source.id);
+}
+
+function initializeRoomLevel1(room) {
+  console.log(`Initializing room ${room.name} for level 1`);
+  // Available Roads, Containers (5)
+
 }
 
 function initializeRoomLevel2(room) {
   console.log(`Initializing room ${room.name} for level 2`);
-  // TODO: do things needed for level 2
-  room.memory.initializedLevel2 = true;
+  // Available: Extensions (5 @ 50 capacity), Ramparts (300K max hits), Walls
+  room.controller.activateSafeMode();
 }
 
 function initializeRoomLevel3(room) {
   console.log(`Initializing room ${room.name} for level 3`);
-  // TODO: do things needed for level 3
-  room.memory.initializedLevel3 = true;
+  // Available: Extensions (10 @ 50 capacity), Ramparts (1M max hits), Towers (1)
+  room.controller.activateSafeMode();
 }
 
 function initializeRoomLevel4(room) {
   console.log(`Initializing room ${room.name} for level 4`);
-  // TODO: do things needed for level 4
-  room.memory.initializedLevel4 = true;
+  // Available: Extensions (20 @ 50 capacity), Ramparts (3M max hits), Towers (1), Storage
+  room.controller.activateSafeMode();
+}
+
+function initializeRoomLevel5(room) {
+  console.log(`Initializing room ${room.name} for level 5`);
+  // Available: Extensions (30 @ 50 capacity), Ramparts (10M max hits), Towers (2) Links (2)
+  room.controller.activateSafeMode();
 }
 
 module.exports.loop = function () {
