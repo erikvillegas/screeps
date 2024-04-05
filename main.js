@@ -67,7 +67,7 @@ function initialize() {
     rooms.forEach((room) => {
       const controller = room.controller;
       const sources = room.find(FIND_SOURCES);
-      const sourceControllerSteps = sources.map((source) => {
+      let sourceControllerSteps = sources.map((source) => {
         const path = room.findPath(source.pos, controller.pos, {
           ignoreCreeps: true,
           ignoreDestructibleStructures: true,
@@ -75,22 +75,17 @@ function initialize() {
         return { source, distance: path.length };
       });
 
-      // order sources by length
-      const sourceControllerStepsSorted = sourceControllerSteps.sort(
-        (a, b) => a.distance - b.distance
-      );
-
-      // console.log(`sourceControllerStepsSorted: ${JSON.stringify(sourceControllerStepsSorted, null, 4)}`);
+      sourceControllerSteps.sort((a, b) => a.distance - b.distance);
 
       room.memory.sources = {
-        primary: sourceControllerStepsSorted[0]
-          ? sourceControllerStepsSorted[0].source.id
+        primary: sourceControllerSteps[0]
+          ? sourceControllerSteps[0].source.id
           : undefined,
-        secondary: sourceControllerStepsSorted[1]
-          ? sourceControllerStepsSorted[1].source.id
+        secondary: sourceControllerSteps[1]
+          ? sourceControllerSteps[1].source.id
           : undefined,
-        tertiary: sourceControllerStepsSorted[2]
-          ? sourceControllerStepsSorted[2].source.id
+        tertiary: sourceControllerSteps[2]
+          ? sourceControllerSteps[2].source.id
           : undefined,
       };
 
