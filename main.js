@@ -4,7 +4,6 @@
 
 */
 
-
 function spawnCreep(spawn) {
   const creeps = Object.values(Game.creeps);
 
@@ -16,7 +15,7 @@ function spawnCreep(spawn) {
 
 function assignSource(creep, room) {
   if (!creep.memory.source) {
-    creep.memory.source = room.memory.sources[0]
+    creep.memory.source = room.memory.sources[0];
   }
 }
 
@@ -30,7 +29,7 @@ function manageCreeps(creeps, room) {
     if (doneUpgrading === true || doneUpgrading === undefined) {
       assignSource(creep, room);
 
-      const source = Game.getObjectById(creep.memory.source)
+      const source = Game.getObjectById(creep.memory.source);
 
       creep.moveTo(source);
       creep.harvest(source);
@@ -51,17 +50,15 @@ function manageCreeps(creeps, room) {
   }
 }
 
-function initialize() {
-  // TODO: reset
-  // Memory.initialized = false;
+function initializeRooms() {
+  const rooms = Object.values(Game.rooms);
 
-  if (!Memory.initialized) {
-    console.log("Initializing...");
+  rooms
+    .filter((room) => !room.memory.initialized)
+    .forEach((room) => {
+      console.log(`Initializing room ${room.name}`);
 
-    const rooms = Object.values(Game.rooms);
-
-    // Arrange the sources by distance to controller
-    rooms.forEach((room) => {
+      // Arrange the sources by distance to controller
       const controller = room.controller;
       const sources = room.find(FIND_SOURCES);
       let sourceControllerSteps = sources.map((source) => {
@@ -76,23 +73,14 @@ function initialize() {
         .sort((a, b) => a.distance - b.distance)
         .map((s) => s.source.id);
 
-      console.log(
-        `room.memory.sources: ${JSON.stringify(room.memory.sources, null, 4)}`
-      );
-
-      // console.log(`sourceToControllerSteps: ${JSON.stringify(sourceToControllerSteps, null, 4)}`);
-
-      // Find the appropriate source to use
-
-      // console.log(`sourceToControllerPaths: ${JSON.stringify(sourceToControllerPaths, null, 4)}`);
+      room.memory.initialized = true;
     });
-
-    Memory.initialized = true;
-  }
 }
 
+function levelTwoInitialize() {}
+
 module.exports.loop = function () {
-  initialize();
+  initializeRooms();
 
   const spawn = Game.spawns["S1"];
   const room = spawn.room;
