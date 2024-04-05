@@ -78,7 +78,9 @@ function initializeRooms() {
 
   // check if any rooms have reached level 2
   rooms
-    .filter((room) => !room.memory.initializedLevel2)
+    .filter(
+      (room) => !room.memory.initializedLevel2 && room.controller.level >= 2
+    )
     .forEach((room) => initializeRoomLevel2(room));
 }
 
