@@ -76,13 +76,10 @@ function initialize() {
       });
 
       // order sources by length
-      console.log(
-        `sourceControllerSteps: ${JSON.stringify(
-          sourceControllerSteps,
-          null,
-          4
-        )}`
-      );
+      const sourceControllerStepsSorted = sourceControllerSteps.sort((a, b) => a[1] - b[1])
+
+      console.log(`sourceControllerStepsSorted: ${JSON.stringify(sourceControllerStepsSorted, null, 4)}`);
+      
 
       // room.memory.sources = {
       //   primary: ,
