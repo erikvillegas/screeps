@@ -1,3 +1,10 @@
+/*
+  Areas of optimization:
+  - Optimize resource utilization between all harvesting creeps
+
+*/
+
+
 function spawnCreep(spawn) {
   const creeps = Object.values(Game.creeps);
 
@@ -9,15 +16,7 @@ function spawnCreep(spawn) {
 
 function assignSource(creep, room) {
   if (!creep.memory.source) {
-    const creeps = Object.values(Game.creeps);
-
-    const creepsUsingPrimarySource = creeps
-      .map((c) => c.memory.source)
-      .filter((id) => id === room.memory.sources[0]);
-    creep.memory.source =
-      creepsUsingPrimarySource < 4
-        ? room.memory.sources[0]
-        : room.memory.sources[1];
+    creep.memory.source = room.memory.sources[0]
   }
 }
 
@@ -31,8 +30,7 @@ function manageCreeps(creeps, room) {
     if (doneUpgrading === true || doneUpgrading === undefined) {
       assignSource(creep, room);
 
-      // const source = Game.getObjectById(creep.memory.source)
-      const source = Game.getObjectById("5bbcae399099fc012e638988");
+      const source = Game.getObjectById(creep.memory.source)
 
       creep.moveTo(source);
       creep.harvest(source);
