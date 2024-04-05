@@ -54,7 +54,15 @@ function manageCreeps(creeps, room) {
   }
 }
 
+function initialize() {
+  if (!Memory.initialized) {
+    console.log("Initializing...");
+  }
+}
+
 module.exports.loop = function () {
+  initialize();
+
   const spawn = Game.spawns["S1"];
   const room = spawn.room;
   const creeps = Object.values(Game.creeps);
