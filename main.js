@@ -128,21 +128,18 @@ function initializeRoomLevel2(room) {
   room.controller.activateSafeMode();
 
   // Build construction sites for 4 extensions at Base1 site
-  const baseFlag1 = room.find(FIND_FLAGS).find((f) => f.name === "Base1");
-  console.log(`baseFlag1: ${JSON.stringify(baseFlag1, null, 4)}`);
+  const baseCenter = room.find(FIND_FLAGS).find((f) => f.name === "Base1").pos;
 
   const extensionPositions = [
-    new RoomPosition(baseFlag1.pos.x + 1, baseFlag1.pos.y, room.name), // right
-    new RoomPosition(baseFlag1.pos.x, baseFlag1.pos.y - 1, room.name), // bottom
-    new RoomPosition(baseFlag1.pos.x - 1, baseFlag1.pos.y, room.name), // left
-    new RoomPosition(baseFlag1.pos.x, baseFlag1.pos.y + 1, room.name), // top
+    new RoomPosition(baseCenter.x + 1, baseCenter.y, room.name), // right
+    new RoomPosition(baseCenter.x, baseCenter.y - 1, room.name), // bottom
+    new RoomPosition(baseCenter.x - 1, baseCenter.y, room.name), // left
+    new RoomPosition(baseCenter.x, baseCenter.y + 1, room.name), // top
   ];
 
   extensionPositions.forEach((pos) => {
     room.createConstructionSite(pos, STRUCTURE_EXTENSION);
   });
-  
-  // Main loop: If construction site available, spawn constructor
 }
 
 function initializeRoomLevel3(room) {
@@ -150,9 +147,9 @@ function initializeRoomLevel3(room) {
   // Available: Extensions (10 @ 50 capacity), Ramparts (1M max hits), Towers (1)
   room.controller.activateSafeMode();
 
-  // Build construction site for 1 tower near spawn
-
-  // Main loop: If construction site available, spawn constructor
+  // Build construction sites for 4 extensions at Base1 site
+  const baseCenter = room.find(FIND_FLAGS).find((f) => f.name === "Base1").pos;
+  room.createConstructionSite(baseCenter, STRUCTURE_TOWER);
 }
 
 function initializeRoomLevel4(room) {
