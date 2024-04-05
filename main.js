@@ -50,7 +50,7 @@ function manageCreeps(creeps, room) {
   }
 }
 
-const RoomHelper = require("RoomHelper.js");
+const RoomHelper = require("RoomHelper");
 
 function initializeRooms() {
   const rooms = Object.values(Game.rooms);
