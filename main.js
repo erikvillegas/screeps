@@ -74,9 +74,9 @@ function initialize() {
         return { source, distance: path.length };
       });
 
-      sourceControllerSteps.sort((a, b) => a.distance - b.distance);
-
-      room.memory.sources = sourceControllerSteps.map((s) => s.source.id);
+      room.memory.sources = sourceControllerSteps
+        .sorted((a, b) => a.distance - b.distance)
+        .map((s) => s.source.id);
 
       console.log(
         `room.memory.sources: ${JSON.stringify(room.memory.sources, null, 4)}`
