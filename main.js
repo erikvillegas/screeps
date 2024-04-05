@@ -55,7 +55,7 @@ function manageCreeps(creeps, room) {
 
 function initialize() {
   // TODO: reset
-  // Memory.initialized = false;
+  Memory.initialized = false;
 
   if (!Memory.initialized) {
     console.log("Initializing...");
@@ -75,7 +75,7 @@ function initialize() {
       });
 
       room.memory.sources = sourceControllerSteps
-        .sort((a, b) => b.distance - a.distance)
+        .sort((a, b) => a.distance - b.distance)
         .map((s) => s.source.id);
 
       console.log(
