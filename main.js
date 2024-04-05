@@ -75,7 +75,7 @@ function initialize() {
       });
 
       room.memory.sources = sourceControllerSteps
-        .sorted((a, b) => a.distance - b.distance)
+        .sort((a, b) => a.distance - b.distance)
         .map((s) => s.source.id);
 
       console.log(
