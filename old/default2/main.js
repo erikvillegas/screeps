@@ -89,13 +89,10 @@ module.exports.loopOLD = function () {
     STRUCTURE_STORAGE,
     STRUCTURE_CONTAINER,
   ];
-  var orderedEnergyStorages = _.filter(
-    room.find(FIND_STRUCTURES),
-    function (s) {
-      var isStorage = _.includes(energyStructureTypes, s.structureType);
-      return isStorage && s.energy < s.energyCapacity;
-    }
-  ).sort(function (s1, s2) {
+  var orderedEnergyStorages = _.filter(room.find(FIND_STRUCTURES), function (s) {
+    var isStorage = _.includes(energyStructureTypes, s.structureType);
+    return isStorage && s.energy < s.energyCapacity;
+  }).sort(function (s1, s2) {
     return (
       energyStructureTypes.indexOf(s1.structureType) -
       energyStructureTypes.indexOf(s2.structureType)
@@ -112,12 +109,9 @@ module.exports.loopOLD = function () {
     STRUCTURE_STORAGE,
     STRUCTURE_LINK,
   ];
-  var orderedConstrutionSites = _.filter(
-    room.find(FIND_CONSTRUCTION_SITES),
-    function (s) {
-      return true; //(_.includes(constructionSiteTypes, s.structureType))
-    }
-  ).sort(function (s1, s2) {
+  var orderedConstrutionSites = _.filter(room.find(FIND_CONSTRUCTION_SITES), function (s) {
+    return true; //(_.includes(constructionSiteTypes, s.structureType))
+  }).sort(function (s1, s2) {
     return (
       constructionSiteTypes.indexOf(s1.structureType) -
       constructionSiteTypes.indexOf(s2.structureType)
@@ -147,29 +141,18 @@ module.exports.loopOLD = function () {
     return false;
   })
     .sort(function (s1, s2) {
-      return (
-        repairSiteTypes.indexOf(s1.structureType) -
-        repairSiteTypes.indexOf(s2.structureType)
-      );
+      return repairSiteTypes.indexOf(s1.structureType) - repairSiteTypes.indexOf(s2.structureType);
     })
     .sort(function (s1, s2) {
-      if (
-        s1.structureType == STRUCTURE_WALL ||
-        s1.structureType == STRUCTURE_RAMPART
-      ) {
+      if (s1.structureType == STRUCTURE_WALL || s1.structureType == STRUCTURE_RAMPART) {
         // return 1
         return (
-          repairSiteTypes.indexOf(s1.structureType) -
-          repairSiteTypes.indexOf(s2.structureType)
+          repairSiteTypes.indexOf(s1.structureType) - repairSiteTypes.indexOf(s2.structureType)
         );
-      } else if (
-        s2.structureType == STRUCTURE_WALL ||
-        s2.structureType == STRUCTURE_RAMPART
-      ) {
+      } else if (s2.structureType == STRUCTURE_WALL || s2.structureType == STRUCTURE_RAMPART) {
         // return -1
         return (
-          repairSiteTypes.indexOf(s1.structureType) -
-          repairSiteTypes.indexOf(s2.structureType)
+          repairSiteTypes.indexOf(s1.structureType) - repairSiteTypes.indexOf(s2.structureType)
         );
       }
 
@@ -404,10 +387,7 @@ module.exports.loopOLD = function () {
         `!!! ${i}. ${creep.name} is unable to find a target! - TTL: ${creep.ticksToLive}`
       );
 
-      var closestFlag = sortByClosestToTarget(
-        [vacationFlag, vacationFlag2],
-        creep
-      )[0];
+      var closestFlag = sortByClosestToTarget([vacationFlag, vacationFlag2], creep)[0];
       if (creep.pos != closestFlag.pos) {
         // console.log(`${creep.name} is headed for ${closestFlag.name} flag (3)`)
         creep.moveTo(closestFlag);
@@ -434,10 +414,7 @@ module.exports.loopOLD = function () {
       }
 
       // if (i == 0) {
-      if (
-        towerRepairSites.length > 0 &&
-        tower.energy / tower.energyCapacity > 0.7
-      ) {
+      if (towerRepairSites.length > 0 && tower.energy / tower.energyCapacity > 0.7) {
         tower.repair(towerRepairSites[0]);
       }
       // }
@@ -449,10 +426,9 @@ module.exports.loopOLD = function () {
   }
 
   console.log(
-    `CONTROLLER STATUS REPORT: ${(
-      (controller.progress / controller.progressTotal) *
-      100
-    ).toFixed(4)}% complete`
+    `CONTROLLER STATUS REPORT: ${((controller.progress / controller.progressTotal) * 100).toFixed(
+      4
+    )}% complete`
   );
 };
 
@@ -499,11 +475,7 @@ function performAction(creep, target) {
 
 function findTarget(creep) {
   var reachedCapacity = creep.carry.energy == creep.carryCapacity;
-  if (
-    creep.memory.useRemoteSource &&
-    creep.room.name != LEFT_ROOM &&
-    !creep.memory.is_working
-  ) {
+  if (creep.memory.useRemoteSource && creep.room.name != LEFT_ROOM && !creep.memory.is_working) {
     return ERR_TARGET_NOT_IN_ROOM;
   }
 
@@ -518,10 +490,7 @@ function findTarget(creep) {
 
       // assist the towers if there are attackers
       if (Game.nearbyHostiles.length > 0) {
-        var closestTower = sortByClosestToTarget(
-          Game.towers,
-          Game.nearbyHostiles[0]
-        )[0];
+        var closestTower = sortByClosestToTarget(Game.towers, Game.nearbyHostiles[0])[0];
         return closestTower;
       }
 
@@ -659,24 +628,15 @@ function sourceForCreep(creep) {
     case ROLE_LINK_ASSISTANT:
       return Game.storage;
     default:
-      var closestSource = sortByClosestToTarget(
-        [Game.leftSource, Game.rightSource],
-        creep
-      )[0];
+      var closestSource = sortByClosestToTarget([Game.leftSource, Game.rightSource], creep)[0];
       return closestSource;
   }
 }
 
 function sortByClosestToTarget(objects, target) {
   return objects.sort(function (o1, o2) {
-    var d1 = Math.sqrt(
-      Math.pow(o1.pos.x - target.pos.x, 2) +
-        Math.pow(o1.pos.y - target.pos.y, 2)
-    );
-    var d2 = Math.sqrt(
-      Math.pow(o2.pos.x - target.pos.x, 2) +
-        Math.pow(o2.pos.y - target.pos.y, 2)
-    );
+    var d1 = Math.sqrt(Math.pow(o1.pos.x - target.pos.x, 2) + Math.pow(o1.pos.y - target.pos.y, 2));
+    var d2 = Math.sqrt(Math.pow(o2.pos.x - target.pos.x, 2) + Math.pow(o2.pos.y - target.pos.y, 2));
 
     if (d1 < d2) {
       return -1;
@@ -747,81 +707,15 @@ function createCreep(spawn, role, body) {
     } else if (energyToUse >= 700 && energyToUse < 750) {
       body = [WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE];
     } else if (energyToUse >= 750 && energyToUse < 800) {
-      body = [
-        WORK,
-        WORK,
-        WORK,
-        WORK,
-        CARRY,
-        CARRY,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-      ];
+      body = [WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE];
     } else if (energyToUse >= 800 && energyToUse < 850) {
-      body = [
-        WORK,
-        WORK,
-        WORK,
-        WORK,
-        CARRY,
-        CARRY,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-      ];
+      body = [WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE];
     } else if (energyToUse >= 850 && energyToUse < 900) {
-      body = [
-        WORK,
-        WORK,
-        WORK,
-        WORK,
-        WORK,
-        CARRY,
-        CARRY,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-      ];
+      body = [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE];
     } else if (energyToUse >= 900 && energyToUse < 950) {
-      body = [
-        WORK,
-        WORK,
-        WORK,
-        WORK,
-        WORK,
-        CARRY,
-        CARRY,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-      ];
+      body = [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE];
     } else if (energyToUse >= 950 && energyToUse < 1000) {
-      body = [
-        WORK,
-        WORK,
-        WORK,
-        WORK,
-        WORK,
-        CARRY,
-        CARRY,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-        MOVE,
-      ];
+      body = [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE];
     } else if (energyToUse >= 1000 && energyToUse < 1050) {
       body = [
         WORK,
@@ -1070,8 +964,7 @@ function createCreep(spawn, role, body) {
     "Violet",
   ];
   var roleSuffix = role == ROLE_REMOTE_BUILDER ? "rb" : role.charAt(0);
-  var name =
-    names[Math.floor(Math.random() * names.length)] + " (" + roleSuffix + ")";
+  var name = names[Math.floor(Math.random() * names.length)] + " (" + roleSuffix + ")";
   var useRemoteSource = false;
   var useRemoteBottomSource = false;
 
@@ -1097,9 +990,7 @@ function createCreep(spawn, role, body) {
         useRemoteBottomSource: useRemoteBottomSource,
       });
     } else {
-      console.log(
-        `unable to create ${role} - energyToUse: ${energyToUse} (${canCreateCreep})`
-      );
+      console.log(`unable to create ${role} - energyToUse: ${energyToUse} (${canCreateCreep})`);
     }
   }
 }

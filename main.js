@@ -168,6 +168,7 @@ function initializeRoomLevel5(room) {
 
 module.exports.loop = function () {
   initializeRooms();
+  Game.clearCreepMemory();
 
   const spawn = Game.spawns["S1"];
   const room = spawn.room;
