@@ -84,7 +84,7 @@ function initialize() {
       room.memory.sources = {
         primary: sourceControllerStepsSorted[0].source.id,
         secondary: sourceControllerStepsSorted[1].source.id,
-        tertiary: null
+        tertiary: sourceControllerStepsSorted[2].source.id
       };
 
       console.log(`room.memory.sources: ${JSON.stringify(room.memory.sources, null, 4)}`);
