@@ -62,15 +62,15 @@ function initialize() {
     console.log("Initializing...");
 
     const rooms = Object.values(Game.rooms);
-    const roomData = rooms.map(room => ({
-      controller: room.controller,
-      sources: room.find(FIND_SOURCES)
-    }))
+    
 
     // Arrange the sources
-    roomData.forEach(room => {
-      const sourceToControllerPaths = room.sources.map(source => {
-        return room.findPath(source.pos, room.controller.pos, {
+    rooms.forEach(room => {
+      const controller = room.controller;
+      const sources = room.find(FIND_SOURCES);
+
+      const sourceToControllerPaths = sources.map(source => {
+        return room.findPath(source.pos, controller.pos, {
           ignoreCreeps: true,
           ignoreDestructibleStructures: true,
         });
