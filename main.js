@@ -60,6 +60,7 @@ function initialize() {
 
     // Arrange the sources
     for (const room in Object.values(Game.rooms)) {
+      console.log(room);
       const controller = room.controller;
       const sources = room.find(FIND_SOURCES);
 
