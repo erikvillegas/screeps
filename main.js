@@ -57,6 +57,7 @@ function manageCreeps(creeps, room) {
 function initialize() {
   if (!Memory.initialized) {
     console.log("Initializing...");
+    Memory.initialized = true;
   }
 }
 
