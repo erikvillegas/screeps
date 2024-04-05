@@ -4,6 +4,8 @@
 
 */
 
+require("RoomHelper")();
+
 function spawnCreep(spawn) {
   const creeps = Object.values(Game.creeps);
 
@@ -49,8 +51,6 @@ function manageCreeps(creeps, room) {
     }
   }
 }
-
-require("RoomHelper")();
 
 function initializeRooms() {
   const rooms = Object.values(Game.rooms);
