@@ -3,7 +3,7 @@ module.exports = function () {
     return this.find(FIND_CONSTRUCTION_SITES).length > 0;
   };
 
-  Game.prototype.clearCreepMemory = function () {
+  Game.clearCreepMemory = function () {
     for (const name in Memory.creeps) {
       if (!Game.creeps[name]) {
         delete Memory.creeps[name];
