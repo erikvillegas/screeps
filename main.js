@@ -62,7 +62,7 @@ function initialize() {
 
     const rooms = Object.values(Game.rooms);
 
-    // Arrange the sources
+    // Arrange the sources by distance to controller
     rooms.forEach((room) => {
       const controller = room.controller;
       const sources = room.find(FIND_SOURCES);
@@ -75,7 +75,7 @@ function initialize() {
       });
 
       room.memory.sources = sourceControllerSteps
-        .sort((a, b) => a.distance - b.distance)
+        .sort((a, b) => b.distance - a.distance)
         .map((s) => s.source.id);
 
       console.log(
