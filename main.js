@@ -57,6 +57,28 @@ function manageCreeps(creeps, room) {
 function initialize() {
   if (!Memory.initialized) {
     console.log("Initializing...");
+
+    // Arrange the sources
+    for (const room in Object.values(Game.rooms)) {
+      const controller = room.controller;
+      const sources = room.find(FIND_SOURCES);
+
+      for (const source in sources) {
+        const path = room.findPath(source.pos, controller.pos, {
+          ignoreCreeps: true,
+          ignoreDestructibleStructures: true,
+        });
+
+        console.log(`path: ${JSON.stringify(path, null, 4)}`);
+        
+      }
+    }
+
+    // room.memory.sources = {
+    //   primary: sources[1].id,
+    //   secondary: sources[0].id,
+    // };
+
     Memory.initialized = true;
   }
 }
@@ -69,15 +91,6 @@ module.exports.loop = function () {
   const creeps = Object.values(Game.creeps);
 
   console.log("tick " + Game.time.toString());
-
-  if (!room.memory.sources) {
-    const sources = room.find(FIND_SOURCES);
-
-    room.memory.sources = {
-      primary: sources[1].id,
-      secondary: sources[0].id,
-    };
-  }
 
   spawnCreep(spawn);
   manageCreeps(creeps, room);
