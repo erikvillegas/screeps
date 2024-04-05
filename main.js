@@ -72,13 +72,17 @@ function initialize() {
           ignoreCreeps: true,
           ignoreDestructibleStructures: true,
         });
-        return [source, path.length]
+        return [source, path.length];
       });
 
       // order sources by length
-      console.log(`sourceControllerSteps: ${JSON.stringify(sourceControllerSteps, null, 4)}`);
-      
-
+      console.log(
+        `sourceControllerSteps: ${JSON.stringify(
+          sourceControllerSteps,
+          null,
+          4
+        )}`
+      );
 
       // room.memory.sources = {
       //   primary: ,
@@ -86,17 +90,12 @@ function initialize() {
       //   tertiary: null
       // };
 
-
-
-      console.log(`sourceToControllerSteps: ${JSON.stringify(sourceToControllerSteps, null, 4)}`);
-      
+      // console.log(`sourceToControllerSteps: ${JSON.stringify(sourceToControllerSteps, null, 4)}`);
 
       // Find the appropriate source to use
 
       // console.log(`sourceToControllerPaths: ${JSON.stringify(sourceToControllerPaths, null, 4)}`);
     });
-
-    
 
     Memory.initialized = true;
   }
