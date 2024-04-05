@@ -72,23 +72,31 @@ function initialize() {
           ignoreCreeps: true,
           ignoreDestructibleStructures: true,
         });
-        return {source, distance: path.length};
+        return { source, distance: path.length };
       });
 
       // order sources by length
-      const sourceControllerStepsSorted = sourceControllerSteps.sort((a, b) => a.distance - b.distance)
+      const sourceControllerStepsSorted = sourceControllerSteps.sort(
+        (a, b) => a.distance - b.distance
+      );
 
       // console.log(`sourceControllerStepsSorted: ${JSON.stringify(sourceControllerStepsSorted, null, 4)}`);
-      
 
       room.memory.sources = {
-        primary: sourceControllerStepsSorted[0]?.source?.id ?? undefined,
-        secondary: sourceControllerStepsSorted[1]?.source?.id ?? undefined,
-        tertiary: sourceControllerStepsSorted[2]?.source?.id ?? undefined
-    };
+        primary: sourceControllerStepsSorted[0]
+          ? sourceControllerStepsSorted[0].source.id
+          : undefined,
+        secondary: sourceControllerStepsSorted[1]
+          ? sourceControllerStepsSorted[1].source.id
+          : undefined,
+        tertiary: sourceControllerStepsSorted[2]
+          ? sourceControllerStepsSorted[2].source.id
+          : undefined,
+      };
 
-      console.log(`room.memory.sources: ${JSON.stringify(room.memory.sources, null, 4)}`);
-      
+      console.log(
+        `room.memory.sources: ${JSON.stringify(room.memory.sources, null, 4)}`
+      );
 
       // console.log(`sourceToControllerSteps: ${JSON.stringify(sourceToControllerSteps, null, 4)}`);
 
