@@ -72,7 +72,7 @@ function initializeRooms() {
     .filter((room) => !room.memory.initializedLevel2 && room.controller.level >= 2)
     .forEach((room) => {
       initializeRoomLevel2(room);
-      room.memory.initializedLevel2 = true;
+      // room.memory.initializedLevel2 = true;
     });
 
   rooms
@@ -89,7 +89,7 @@ function initializeRooms() {
       room.memory.initializedLevel4 = true;
     });
 
-    rooms
+  rooms
     .filter((room) => !room.memory.initializedLevel5 && room.controller.level >= 5)
     .forEach((room) => {
       initializeRoomLevel5(room);
@@ -120,19 +120,29 @@ function initializeRoomLevel0(room) {
 function initializeRoomLevel1(room) {
   console.log(`Initializing room ${room.name} for level 1`);
   // Available Roads, Containers (5)
-
 }
 
 function initializeRoomLevel2(room) {
   console.log(`Initializing room ${room.name} for level 2`);
   // Available: Extensions (5 @ 50 capacity), Ramparts (300K max hits), Walls
   room.controller.activateSafeMode();
+
+  // Build construction sites for 4 extensions at Base1 site
+  const baseFlag1 = room.find(FIND_FLAGS).first(f => f.name === "Base1")
+  console.log(`baseFlag1: ${JSON.stringify(baseFlag1, null, 4)}`);
+  
+
+  // Main loop: If construction site available, spawn constructor
 }
 
 function initializeRoomLevel3(room) {
   console.log(`Initializing room ${room.name} for level 3`);
   // Available: Extensions (10 @ 50 capacity), Ramparts (1M max hits), Towers (1)
   room.controller.activateSafeMode();
+
+  // Build construction site for 1 tower near spawn
+
+  // Main loop: If construction site available, spawn constructor
 }
 
 function initializeRoomLevel4(room) {
