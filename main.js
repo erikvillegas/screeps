@@ -76,17 +76,36 @@ function initializeRooms() {
       room.memory.initialized = true;
     });
 
-  // check if any rooms have reached level 2
+  // check if any rooms have reached a new level
   rooms
-    .filter(
-      (room) => !room.memory.initializedLevel2 && room.controller.level >= 2
-    )
+    .filter((room) => !room.memory.initializedLevel2 && room.controller.level >= 2)
     .forEach((room) => initializeRoomLevel2(room));
+
+  rooms
+    .filter((room) => !room.memory.initializedLevel3 && room.controller.level >= 3)
+    .forEach((room) => initializeRoomLevel3(room));
+
+  rooms
+    .filter((room) => !room.memory.initializedLevel4 && room.controller.level >= 4)
+    .forEach((room) => initializeRoomLevel4(room));
 }
 
 function initializeRoomLevel2(room) {
   console.log(`Initializing room ${room.name} for level 2`);
+  // TODO: do things needed for level 2
   room.memory.initializedLevel2 = true;
+}
+
+function initializeRoomLevel3(room) {
+  console.log(`Initializing room ${room.name} for level 3`);
+  // TODO: do things needed for level 3
+  room.memory.initializedLevel3 = true;
+}
+
+function initializeRoomLevel4(room) {
+  console.log(`Initializing room ${room.name} for level 4`);
+  // TODO: do things needed for level 4
+  room.memory.initializedLevel4 = true;
 }
 
 module.exports.loop = function () {
