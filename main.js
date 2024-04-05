@@ -75,9 +75,17 @@ function initializeRooms() {
 
       room.memory.initialized = true;
     });
+
+  // check if any rooms have reached level 2
+  rooms
+    .filter((room) => !room.memory.initializedLevel2)
+    .forEach((room) => initializeRoomLevel2(room));
 }
 
-function levelTwoInitialize() {}
+function initializeRoomLevel2(room) {
+  console.log(`Initializing room ${room.name} for level 2`);
+  room.memory.initializedLevel2 = true;
+}
 
 module.exports.loop = function () {
   initializeRooms();
